@@ -13,7 +13,10 @@ const initialState = {
   loading: true,
   user: null,
   setting: null,
-  table:null
+  table:{
+    datetime: '',
+    tabledata: []
+  }
 };
 
 function authReducer(state = initialState, action) {
@@ -28,6 +31,7 @@ function authReducer(state = initialState, action) {
         user: payload
       };
     case SETTINGS_LOADED:
+      console.log(payload);
       return {
         ...state,
         isAuthenticated:false,

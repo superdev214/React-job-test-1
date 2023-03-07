@@ -19,14 +19,14 @@ import setAuthToken from './utils/setAuthToken';
 const App = () => {
   useEffect(() => {
     // check for token in LS when app first runs
-    if (localStorage.token) {
+    if (localStorage.getItem("token")) {
       // if there is a token set axios headers for all requests
-      setAuthToken(localStorage.token);
+      setAuthToken(localStorage.getItem("token"));
     }
     // try to server data, if no token or invalid token we
     // will get a 401 response from our API
-    store.dispatch(loadUser());
     store.dispatch(loadSettings());
+    store.dispatch(loadUser());
 
     // log user out from all tabs if they log out in one tab
     window.addEventListener('storage', () => {
@@ -45,6 +45,10 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route
             path="/"
+            element={<PrivateRoute component={Home} />}
+          />
+          <Route
+            path="/dashboard"
             element={<PrivateRoute component={Home} />}
           />
           <Route

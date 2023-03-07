@@ -582,3 +582,8 @@ button {
   right: 2rem;
   display: inline-block;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}

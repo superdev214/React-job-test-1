@@ -1,18 +1,43 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import formatDate from '../../utils/formatDate';
+import React, { Fragment, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loadTable } from "../../actions/setting";
 
-const Education = ({ education}) => {
-  const educations = education.map((edu) => (
-    <tr key={edu._id}>
-      <td>{edu.school}</td>
-      <td className="hide-sm">{edu.degree}</td>
-      <td>
-        {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : 'Now'}
-      </td>
-      <td>
-      </td>
+const Home = ({ tableData, isAuthenticated, loading, loadTable }) => {
+  const [headerData, setHeaderData] = useState([]);
+  const [tableContents, setTableContents] = useState([]);
+
+  useEffect(() => {
+    
+    if (isAuthenticated) {
+      loadTable();
+    }
+  }, [isAuthenticated, loading, loadTable]);
+  useEffect(() => {
+    let isApiSubscribed = true;
+
+    const handleTableData = () => {
+      if (!isApiSubscribed) return;
+      if (tableData && tableData.length) {
+        setHeaderData(tableData[0]);
+
+        let contentsData = [...tableData];
+        contentsData.shift();
+        setTableContents(contentsData);
+      }
+    };
+
+    handleTableData();
+
+    return () => {
+      isApiSubscribed = false;
+    };
+  }, [tableData]);
+  const rows = tableContents?.map((tc, index) => (
+    <tr key={index}>
+      {tc.map((t, _index) => (
+        <td key={_index}>{t}</td>
+      ))}
     </tr>
   ));
 
@@ -22,20 +47,26 @@ const Education = ({ education}) => {
       <table className="table">
         <thead>
           <tr>
-            <th>School</th>
-            <th className="hide-sm">Degree</th>
-            <th className="hide-sm">Years</th>
-            <th />
+            {headerData.map((h) => (
+              <th key={h}>{h}</th>
+            ))}
           </tr>
         </thead>
-        <tbody>{educations}</tbody>
+        <tbody>{rows}</tbody>
       </table>
     </Fragment>
   );
 };
 
-Education.propTypes = {
-  education: PropTypes.array.isRequired,
-};
+// Home.propTypes = {
+//   // tableData: PropTypes.array.isRequired,
+// };
 
-export default connect()(Education);
+const mapStateToProps = (state) => ({
+  loadTable: PropTypes.func.isRequired,
+  tableData: state.setting.table?.tabledata,
+  isAuthenticated: state.setting.isAuthenticated,
+  loading: state.setting.loading,
+});
+
+export default connect(mapStateToProps, { loadTable })(Home);
