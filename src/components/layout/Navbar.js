@@ -45,7 +45,7 @@ const Navbar = ({ setting: { isAuthenticated }, logout }) => {
       <div className='container-fluid'>
         <Link to="/" className='navbar-brand'>
           {/* <img src='"https:\/\/paul.blueboxonline.com\/portal\/lamp01\/custom_modules\/logo.jpg'/> */}
-          <img src='"../../img/showcase.jpg'/>
+          <img src='"../../img/showcase.jpg'alt='no need'/>
         </Link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
