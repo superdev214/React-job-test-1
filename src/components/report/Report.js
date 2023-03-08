@@ -1,8 +1,7 @@
-import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { uploadFile } from "../../utils/uploadService";
-const Report = ({}) => {
+const Report = () => {
   const [formData, setFormData] = useState({
     numValue: 0,
     imageFile: "",

@@ -1,9 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/setting';
-import Alert from '../layout/Alert';
 
 const Login = ({ login, isAuthenticated }) => {
     const [formData, setFormData] = useState({
@@ -74,7 +73,7 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.setting.isAuthenticated,
-    
+
 });
 
 export default connect(mapStateToProps, { login })(Login);
