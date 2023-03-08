@@ -7,57 +7,69 @@ import "../../img/showcase.jpg";
 
 const Navbar = ({ setting: { isAuthenticated, setting }, logout }) => {
   useEffect(() => {
-    console.log('settings => ', setting);
-  }, [setting])
-  const authLinks = (
-    <ul className="navbar-nav">
-      <li>
-        <Link to="/profiles">Developers</Link>
-      </li>
-      <li>
-        <Link to="/posts">Posts</Link>
-      </li>
-      <li>
-        <Link to="/dashboard">
-          <i className="fas fa-user" />{" "}
-          <span className="hide-sm">Dashboard</span>
-        </Link>
-      </li>
-      <li>
-        <a onClick={logout} href="#!">
-          <i className="fas fa-sign-out-alt" />{" "}
-          <span className="hide-sm">Logout</span>
-        </a>
-      </li>
-    </ul>
-  );
+    console.log("settings => ", setting);
+  }, [setting]);
+  // const authLinks = (
+  //   <ul className="navbar-nav">
+  //     <li>
+  //       <Link to="/profiles">Developers</Link>
+  //     </li>
+  //     <li>
+  //       <Link to="/posts">Posts</Link>
+  //     </li>
+  //     <li>
+  //       <Link to="/dashboard">
+  //         <i className="fas fa-user" />{" "}
+  //         <span className="hide-sm">Dashboard</span>
+  //       </Link>
+  //     </li>
+  //     <li>
+  //       <a onClick={logout} href="#!">
+  //         <i className="fas fa-sign-out-alt" />{" "}
+  //         <span className="hide-sm">Logout</span>
+  //       </a>
+  //     </li>
+  //   </ul>
+  // );
 
   const guestLinks = (
     <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
       <li className="nav-item mr-5">
-        <Link to="/profiles">Home</Link>
+        <Link to="/dashboard">Home</Link>
       </li>
-      <li className="nav-item">
-        <Link to="/login">Login</Link>
+      <li className="nav-item mr-5">
+        <Link to="/report">Report</Link>
       </li>
+      {
+        !isAuthenticated && (
+          <li className="nav-item">
+          <Link to="/login">Login</Link>
+        </li>
+        )
+      }
+   
+      {isAuthenticated && (
+        <li>
+          <a onClick={logout} href="#!">
+            {/* <i className="fas fa-sign-out-alt" />{" "} */}
+            <span className="hide-sm">Logout</span>
+          </a>
+        </li>
+      )}
     </ul>
   );
 
   return (
-    <nav className="navbar navbar-expand-md bg-light navbar-light">
-      <div className="container-fluid">
-        <Link to="/" className="navbar-brand">
-          {setting?.logo && (
-            <img
-              src={setting.logo}
-              alt="logo"
-              height={64}
-            />
-          )}
-          {/* <img src='"../../img/showcase.jpg'alt='no need'/> */}
+    <nav className="navbar navbar-expand-md bg-light navbar-light fixed-top">
+      <div className="container-fluid ">
+        <Link to="/" className="navbar-brand col-sm-12 col-md-6 col-lg-6 col-xs-12 col-xl-6 d-none d-md-block d-lg-none">
+          {setting?.logo && <img src={setting.logo} alt="logo" height={64} />}
+        </Link>
+        <Link to="/" className="navbar-brand col-sm-12 col-md-6 col-lg-6 col-xs-12 col-xl-6 d-md-none d-lg-block d-flex justify-content-center">
+          {setting?.logo && <img src={setting.logo} alt="logo" height={64} />}
         </Link>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler "
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -67,8 +79,8 @@ const Navbar = ({ setting: { isAuthenticated, setting }, logout }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        <div className="collapse navbar-collapse col-sm-12 col-xs-12 col-md-6 col-lg-6" id="navbarSupportedContent">
+          <Fragment>{guestLinks}</Fragment>
         </div>
       </div>
     </nav>

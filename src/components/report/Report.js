@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import formatDate from '../../utils/formatDate';
-
-const ProfileEducation = ({
+import { connect } from "react-redux";
+const Report = ({
   education: { school, degree, fieldofstudy, current, to, from, description }
 }) => (
   <div>
@@ -22,8 +22,15 @@ const ProfileEducation = ({
   </div>
 );
 
-ProfileEducation.propTypes = {
-  education: PropTypes.object.isRequired
-};
+// Report.propTypes = {
+//   education: PropTypes.object.isRequired
+// };
 
-export default ProfileEducation;
+const mapStateToProps = (state) => ({
+  loadTable: PropTypes.func.isRequired,
+  tableData: state.setting.table?.tabledata,
+  isAuthenticated: state.setting.isAuthenticated,
+  loading: state.setting.loading,
+});
+
+export default connect(mapStateToProps, { loadTable })(Report);

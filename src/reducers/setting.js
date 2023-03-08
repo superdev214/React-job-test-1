@@ -31,7 +31,6 @@ function authReducer(state = initialState, action) {
         user: payload
       };
     case SETTINGS_LOADED:
-      console.log(payload);
       return {
         ...state,
         isAuthenticated:false,

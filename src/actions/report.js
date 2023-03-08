@@ -6,7 +6,6 @@ import {
   UPDATE_LIKES,
   DELETE_POST,
   ADD_POST,
-  GET_TABLE_DATA,
   ADD_COMMENT,
   REMOVE_COMMENT
 } from './types';

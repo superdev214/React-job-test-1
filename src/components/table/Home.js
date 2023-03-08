@@ -8,7 +8,6 @@ const Home = ({ tableData, isAuthenticated, loading, loadTable }) => {
   const [tableContents, setTableContents] = useState([]);
 
   useEffect(() => {
-    
     if (isAuthenticated) {
       loadTable();
     }
@@ -42,19 +41,27 @@ const Home = ({ tableData, isAuthenticated, loading, loadTable }) => {
   ));
 
   return (
-    <Fragment>
-      <h2 className="my-2">Education Credentials</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            {headerData.map((h) => (
-              <th key={h}>{h}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    </Fragment>
+    <div className="py-5 my-5">
+      
+      <div className="container mx-auto">
+      <h2 className="my-5">Home</h2>
+        <Fragment>
+          <table className="table container m-auto overflow-scroll">
+            <thead>
+              <tr>
+                {headerData.map((h) => (
+                  <th className="text-center" key={h}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="text-center">{rows}</tbody>
+          </table>
+        </Fragment>
+        <div />
+      </div>
+    </div>
   );
 };
 
