@@ -9,7 +9,10 @@ const PrivateRoute = ({
   setting: { isAuthenticated, loading }
 }) => {
   if (loading) return <Spinner />;
-  if (isAuthenticated) return <Component />;
+  if (isAuthenticated) {
+    
+    return <Component />;
+  }
 
   return <Navigate to="/login" />;
 };
